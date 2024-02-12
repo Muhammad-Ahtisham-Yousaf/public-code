@@ -1,0 +1,9 @@
+{
+    "editor.fontSize": 17,
+    "files.autoSave": "afterDelay",
+    "editor.fontFamily": "Nunito, sans-serif,Consolas, 'Courier New', monospace",
+    "load static":true,
+    "emmet.includeLanguages": {
+        "django-html":"html",
+    }
+}
