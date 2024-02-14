@@ -22,14 +22,14 @@ class CustomRegistrationForm (UserCreationForm):
         model = User
         fields = [ 'id','full_name','username','email','password1', 'password2','contact_no','spacialization']
         # fields = ('__all__')
-        # exclude = ('id')
+        # exclude = ('id') 
 
-def __init__(self, *args, **kwargs):
-    super(CustomRegistrationForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(CustomRegistrationForm, self).__init__(*args, **kwargs)
 
-    # self.fields['username'].widget.attrs['placeholder'] = 'User Name'
-    # self.fields['username'].widget.attrs['class'] = ''
-    # self.fields['password1'].widget.attrs['placeholder'] = 'Password'
-    # self.fields['password1'].widget.attrs['class'] = ''  # Add class here
-    # self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
-    # self.fields['password2'].widget.attrs['class'] = ''  # Add class here
+        self.fields['username'].widget.attrs['placeholder'] = 'User Name'
+        self.fields['username'].widget.attrs['class'] = ''
+        self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+        self.fields['password1'].widget.attrs['class'] = ''  # Add class here
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+        self.fields['password2'].widget.attrs['class'] = ''  # Add class here

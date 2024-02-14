@@ -1,4 +1,6 @@
-   {% load static %}
+   {% extends 'base.html'  %}
+{% load static %}
+ {% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,13 +18,13 @@
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
          
            <link rel="stylesheet" href="{% static 'css/main.css' %} ">
-           <!-- <link rel="stylesheet" href="{%  static 'js/main.js'  %} "> -->
+          <link rel="stylesheet" href="{%  static 'js/main.js'  %} ">
     <title>Responsive Website</title>
 
 </head>
 <body>
     
-    <!-- navbar -->
+    {% comment %} <!-- navbar -->
     <nav class="navbar">
         <h1 class="logo"><a href="#">   Ahtisham   </a></h1>
         <!-- <h1 class="logo">Suffah</h1> -->
@@ -46,7 +48,7 @@
                             <span class="bar"></span>
                      </div>
     </nav>
-
+ {% endcomment %}
 
         {% comment %} <nav class="navbar">
             <div class="container">
@@ -516,7 +518,7 @@
         </div>
      </div>
 </section>
-     <!-- footer -->
+     {% comment %} <!-- footer -->
 <footer>
     <div class="row">
         <div class="col">
@@ -575,7 +577,7 @@
         </div>
    
  </div>
-</footer>
+</footer> {% endcomment %}
 
 
 
@@ -589,3 +591,4 @@
     
 </body>
 </html>
+{% endblock %}

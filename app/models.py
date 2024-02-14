@@ -12,3 +12,14 @@ from django.db import models
 
 #     def __str__(self):
 #         return f' {self.id} -  {self.first_name} - {self.last_name} - {self.email} - {self.contact_no}' 
+
+# class Myuser (models.Model):
+#     full_name = models.CharField(max_length=150)
+    
+#     email = models.EmailField(max_length=150)
+
+#     contact_no = models.CharField(max_length=150)
+   
+#     def __str__(self):
+#         return f'User :{self.username}'
+#         # return f' {self.id} -  {self.f_name} - {self.l_name} - {self.email} - {self.contact_no}' 

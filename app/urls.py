@@ -12,10 +12,11 @@ urlpatterns = [
     path('contact_us/',views.contact_us, name='contact_us'),
     path('job_posting/',views.job_posting, name='job_posting'),
     path('privacy_and_policy/',views.privacy_and_policy, name='privacy_and_policy'),
+    path('dashboard/',views.dashboard, name='dashboard'),
+   
 
 
-
-    # path('edit/<int:id>',views.edit, name='edit'),
-    # path('delete/<int:id>',views.delete, name='delete'),
-    # path('update/',views.update, name='update')
+     path('edit/<int:id>',views.edit, name='edit'),
+    path('delete/<int:id>',views.delete, name='delete'),
+     path('update/',views.update, name='update')
 ]
