@@ -1,4 +1,4 @@
-{% extends 'base.html'  %}
+ {% extends 'base.html'  %}
 {% load static %}
 
 {% block 'title' %}    Registration Form {% endblock  %}
@@ -286,11 +286,32 @@
     <div class="container">
         <header class="header">Edit Form</header>
 
-        <form id="form" action=" " method = "POST" >
+        <form id="form" action="{% url 'user_edit' %} " method = "POST" >
             {% csrf_token %}
             {% comment %} <div class="form first"> <span class="title">Personal Details</span>
                     {% endcomment %}
                 <div class="details personal">
+                    <div class="fields">
+                          <div class="input-fields">
+                                <label for=""> Full Name <em>*</em></label>
+                                 {{ user_edit.first_name }} 
+                                {% comment %} <input type="text" placeholder="Enter Your First Name" > {% endcomment %}
+                          </div>
+                    </div>
+                    <div class="fields">
+                          <div class="input-fields">
+                                <label for="">Username <em>*</em></label>
+                                 {{ user_edit.username }} 
+                                {% comment %} <input type="text" placeholder="Enter Your First Name" > {% endcomment %}
+                          </div>
+                    </div>
+                    <div class="fields">
+                          <div class="input-fields">
+                                <label for="">Email <em>*</em></label>
+                                 {{ user_edit.email }} 
+                                {% comment %} <input type="text" placeholder="Enter Your First Name" > {% endcomment %}
+                          </div>
+                    </div>
                    
                     <div class="fields">
                           <div class="input-fields">
@@ -300,13 +321,13 @@
                           </div>
                     </div> 
 
-                    <div class="fields">
+                    {% comment %} <div class="fields">
                         <div class="input-fields">
                               <label for=""> Joining Date <em>*</em></label>
-                                {{ user_edit.joining_date }}
+                                {{ user_edit.joining_date }} {% endcomment %}
                               {% comment %} <input type="text" placeholder="Enter Your Last Name" > {% endcomment %}
-                        </div>
-                  </div> 
+                        {% comment %} </div>
+                  </div>  {% endcomment %}
 
                     <div class="fields">
                         <div class="input-fields">
@@ -331,18 +352,18 @@
                         </div>
                   </div>
     
-              <div class="fields">
+              {% comment %} <div class="fields">
                   <div class="input-fields">
                         <label for="">Projects <em>*</em></label>
-                             {{ user_edit.projects }}
+                             {{ user_edit.projects }} {% endcomment %}
                         {% comment %} <input type="text" placeholder=" Confirm Password" > {% endcomment %}
-                  </div>
-             </div>
+                  {% comment %} </div>
+             </div> {% endcomment %}
             <div class="fields">
                   <div class="input-fields">
-                        <label for="">Project Description <em>*</em></label>
-                             {{ user_edit.project_desc }}
-                        {% comment %} <input type="text" placeholder=" Confirm Password" > {% endcomment %}
+                        <label for="">Specialization <em>*</em></label>
+                             {% comment %} {{ user_edit.specialization }} {% endcomment %}
+                        <input type="text" name="specialization" placeholder=" Specialization" >
                   </div>
              </div>
 
