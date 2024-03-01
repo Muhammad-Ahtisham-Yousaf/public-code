@@ -19,7 +19,9 @@ urlpatterns = [
     path('delete_user/<int:id>',views.delete_user, name='delete_user'),
     #  path('update_user/',views.update_user, name='update_user'),
      
-    path ('edit_user/',views.edit_user, name= 'edit_user'),
+    path ('user_details/',views.user_details, name= 'user_details'),
+    path ('user_edit/',views.user_edit, name= 'user_edit'),
+    path ('candidate_logout/',views.candidate_logout, name= 'candidate_logout'),
     # path('custom_candidate_registration/',views.custom_candidate_registration, name='custom_candidate_registration'), 
     # path('custom_candidate_login/',views.custom_candidate_login, name='custom_candidate_login'), 
     path('candidates/',views.candidates, name='candidates'), 
@@ -28,7 +30,6 @@ urlpatterns = [
     path('profile_page/',views.profile_page, name='profile_page'), 
     path('jobs/',views.jobs, name='jobs'), 
     path('full_job_profile/',views.full_job_profile, name='full_job_profile'), 
-    path('candidate/logout/',views.candidate_logout, name='candidate_logout'), 
 
     
     # path('edit_custom_user/',views.edit_custom_user, name='edit_custom_user'), 
