@@ -20,10 +20,10 @@ from django.contrib import messages
 
 #  Custom forms
 from .djangoForms.job_posting import JobPostingForm
-from .djangoForms.password_edit_form import EditUserForm
+from .djangoForms.password_edit_form import UserDetailsForm
 
 # Custom Models
-from .models import JobPosting , UserDetails ,EditUser
+from .models import JobPosting , EmployerDetails ,UserDetails
 
 # Create your views here.
 def home (request):
@@ -91,55 +91,17 @@ def candidate_registration (request):
         return render(request, 'Candidate/registration.html', {'form_data': form})
     else:
         form = BuiltinUserCreationForm(request.POST, request.FILES)
-        if form.is_valid():
-            first_name = request.POST['first_name']
-            email = request.POST['email']
-            username = request.POST['username']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
-            if not  password1:
-                messages.error(request, 'Password cannot be empty')
-                return redirect('candidate_registration')
-            elif User.objects.filter(first_name=first_name).exists():
-                messages.error(request, 'Name already exists')
-                return redirect('candidate_registration')
-            elif User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists')
-                return redirect('candidate_registration')
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already exists')
-                return redirect('candidate_registration')
-            elif password1 != password2:
-                messages.error(request, 'Passwords do not match')
-                return redirect('candidate_registration')
-          
-            form.save()
-            messages.success(request, 'User registered successfully')
-            return redirect('candidate_login')
+        specialization= request.POST['specialization']
+        if form.is_valid() and specialization:
+            user=form.save()
+            edit_user= UserDetails (specialization=specialization,user=user,type=0)
+            edit_user.save()
+            messages.success(request, 'User registered successfully.')
+            # return HttpResponse (edit_user)
+            return redirect (candidate_login)
         else:
-            first_name = request.POST['first_name']
-            email = request.POST['email']
-            username = request.POST['username']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
-            if not  password1:
-                messages.error(request, 'Password cannot be empty')
-                return redirect('candidate_registration')
-            elif User.objects.filter(first_name=first_name).exists():
-                messages.error(request, 'Name already exists')
-                return redirect('candidate_registration')
-            elif User.objects.filter(username=username).exists():
-                messages.error(request, 'Username already exists')
-                return redirect('candidate_registration')
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, 'Email already exists')
-                return redirect('candidate_registration')
-            elif password1 != password2:
-                messages.error(request, 'Passwords do not match')
-                return redirect('candidate_registration')
-
-            messages.error(request, 'You does not follow the instructions')
-            return redirect (candidate_registration)
+            messages.error(request, 'You does not follow the instructions.')
+            return HttpResponse (form.errors)
 
 # def custom_candidate_registration (request):
 #     if request.method == 'GET':
@@ -222,7 +184,7 @@ def candidate_login(request):
 
         if username and user_password:
            user = authenticate(request,username=username, password=user_password)
-           # return HttpResponse (user)
+        #    return HttpResponse (user)
            if user is not None:
                  login(request,user)
                  messages.success(request,'Logged In successfull!')
@@ -264,61 +226,17 @@ def employer_registration (request):
         form = BuiltinEmployerCreationForm()
         return render(request, 'Employer/registration.html', {'form_data': form})
     else:
-
         form = BuiltinEmployerCreationForm(request.POST, request.FILES)
         company = request.POST['company']
-
         if form.is_valid() and company:
-            # first_name = request.POST['first_name']
-            # email = request.POST['email']
-            # username = request.POST['username']
-            # password2 = request.POST['password1']
-            # password1 = request.POST['password2']
-            # company = request.POST['company']
-            # if not  password1:
-            #     messages.error(request, 'Password cannot be empty')
-            #     return redirect('employer_registration')
-            # elif User.objects.filter(first_name=first_name).exists():
-            #     messages.error(request, 'Name already exists')
-            #     return redirect('employer_registration')
-            # elif User.objects.filter(username=username).exists():
-            #     messages.error(request, 'Username already exists')
-            #     return redirect('employer_registration')
-            # elif User.objects.filter(email=email).exists():
-            #     messages.error(request, 'Email already exists')
-            #     return redirect('employer_registration')
-            # elif password1 != password2:
-            #      messages.error(request, 'Passwords do not match')
-            #      return redirect('employer_registration')
-            
-          
             employer = form.save()
             
-            emplyer_details = UserDetails(company = company, user = employer , type = 0)
+            emplyer_details = EmployerDetails(company = company, employer = employer , type = 1)
             emplyer_details.save()
             
             messages.success(request, 'User registered successfully')
             return redirect('employer_login')
         else:
-            # first_name = request.POST['first_name']
-            # email = request.POST['email']
-            # username = request.POST['username']
-            # password1 = request.POST['password1']
-        
-            # if not  password1:
-            #     messages.error(request, 'Password cannot be empty')
-            #     return redirect('employer_registration')
-            # elif User.objects.filter(first_name=first_name).exists():
-            #     messages.error(request, 'Name already exists')
-            #     return redirect('employer_registration')
-            # elif User.objects.filter(username=username).exists():
-            #     messages.error(request, 'Username already exists')
-            #     return redirect('employer_registration')
-            # elif User.objects.filter(email=email).exists():
-            #     messages.error(request, 'Email already exists')
-            #     return redirect('employer_registration')
-        
-
             messages.error(request, 'You does not follow the instructions')
             return HttpResponse (form.errors)
         
@@ -469,26 +387,57 @@ def delete_user(request,id):
     return redirect('dashboard')
 
 
-def edit_user(request):
+def user_details(request):
    
     # return HttpResponse(user)
     if request.method == 'GET':
-        user_edit = EditUserForm(request.POST or None,instance=request.user)
+        user_edit = UserDetailsForm()
         return render(request,'Candidate/edit_user.html',{'user_edit':user_edit} )
         # form = UserChangeForm()
         # return HttpResponse(form)
         # return HttpResponse(f'edit: {id}')
     else:
-        form = EditUserForm(request.POST,instance=request.user)
+        form = UserDetailsForm(request.POST)
 
-        if form.is_valid():
-            form.save()
-            messages.success(request,'Record updated Successfully!')
-            return redirect(home)
+        specialization= request.POST['specialization']
+        edit_user= UserDetails (specialization=specialization,user=request.user,type='0')
+        if form.is_valid() and specialization:
+            return HttpResponse (form)
+            user=form.save()
+           
+            edit_user.save()
+            messages.success(request, 'User registered successfully.')
+            return HttpResponse (edit_user)
         else:
             messages.error(request,'invalid data')
             return HttpResponse (form.errors)
+        
 
+def user_edit(request):
+    if request.method == 'GET':
+        # form = UserChangeForm()
+        # return HttpResponse(request.user)
+        form = UserChangeCustomForm(request.POST or None,instance=request.user)
+        # return HttpResponse(form)
+        return render(request,'Candidate/edit_user.html',{'user_edit':form})
+    else:
+        specialization=request.POST['specialization']
+        form =UserChangeCustomForm(request.POST or None,instance=request.user,)
+        
+        # return HttpResponse (form)
+        edit_user= UserDetails (specialization=specialization,user=request.user,type=0)
+
+        if form.is_valid() and specialization:
+            form.save()
+            edit_user.save()
+
+            messages.success(request,'User record updated Successfully!')
+            return redirect('home')
+            # return HttpResponse(request.POST)
+        else:
+            messages.error(request,'Invalid information')
+            return HttpResponse (form.errors)
+    
 
 # def edit_custom_user (request,id):
 #     user = CustomRegistrationForm.objects.get(id=id)
