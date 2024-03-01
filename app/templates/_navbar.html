@@ -83,7 +83,7 @@
             transform: translateX(-50%);
             /* background-color: darkblue; */
             height: auto;
-            min-width: 200px;
+            min-width: 170px;
           /* display: none; */
           opacity: 0;
             flex-direction: column;
@@ -92,18 +92,10 @@
             top: 20%;
             transition: all .3s linear;
              color:black;
+             cursor: pointer;
 
 }
-/* .drop-hover  {
-      opacity: 0;
-    display: flex;
-    display: none;
-   color: black;
-} */
-/* .drop-hover:hover {
-    opacity:1;
-    display: flex;
-} */
+
   .menu ul li:hover > .drop-hover{
      
             visibility: visible;
@@ -115,14 +107,15 @@
 
         .menu .drop-hover li{
         
-            height: 3rem;
-            line-height: 3rem;
+            height: 2.4rem;
+       line-height: 2rem;
             width: 100%;
             text-align: center;
-            transition: all .3s linear;
+            transition: all .3s ;
             /*border: 1px solid red;*/
             background-color: aliceblue;
             font-size: 1rem;
+            cursor: pointer;
         } 
         .drop-hover li a {
             color:black;
@@ -131,6 +124,7 @@
 
         .menu .drop-hover li:hover{
             background-color: steelblue;
+            cursor: pointer;
           
         }
 /* .menu .drop-hover {
@@ -195,16 +189,11 @@
 .menu .profile-pic {
     height: 50px;
     width: 50px;
-   border-radius: 50%;
+    border-radius: 50%;
     margin-top: -17px;
+    background-color: aliceblue;
 }
-/* @media screen and ( max-width:400px) {
-     .navbar {
-        margin:0;
-        width: 100%;
-    }
-    
-} */
+
 @media screen and (max-width: 768px) {
     .menu a,.menu li {
         color:black;
@@ -437,9 +426,9 @@
                                 <img class="profile-pic" src="https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg" alt=" Profile">
                                 <ul class="drop-hover">
                                     <li><a href=""> Profile</a></li>
-                                    <li><a href="{% url 'edit_user' %}"> Edit Profile</a></li>
+                                    <li><a href="{% url 'user_edit' %}"> Edit Profile</a></li>
                                     <li><a href=""> Change Password</a></li>
-                                    <li><a href="{% url 'candidate_logout' %} "> Logout</a></li>
+                                    <li><a href="{% url 'candidate_logout' %}"> Logout</a></li>
                                 </ul>
                             </li>
                             {% endif %}
